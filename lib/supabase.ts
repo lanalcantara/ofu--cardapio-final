@@ -11,8 +11,8 @@ export type Product = {
   name: string
   description: string
   price: number
-  category: "bolos" | "doces" | "especiais"
-  subcategory?: "brigadeiros" | "cookies" | "outros"
+  category: string
+  subcategory?: string
   image_url?: string
   popular: boolean
   active: boolean

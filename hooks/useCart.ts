@@ -8,7 +8,7 @@ interface Product {
   name: string
   description: string
   price: number
-  category: "bolos" | "doces" | "especiais" | "cookies"
+  category: string
   image_url?: string
   popular: boolean
   active: boolean

@@ -1,11 +1,12 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-import { Phone, MapPin, Package, User } from "lucide-react"
+import { Phone, MapPin, Package, User, ShoppingBag } from "lucide-react"
 
 interface Order {
   id: string
@@ -120,9 +121,17 @@ export default function AdminPage() {
               <h1 className="text-3xl font-bold text-red-500">Painel Administrativo</h1>
               <p className="text-gray-600">Gerencie os pedidos da Ofuê</p>
             </div>
-            <Badge className="bg-red-500">
-              {orders.filter((order) => order.status === "pending").length} Pedidos Pendentes
-            </Badge>
+            <div className="flex items-center gap-4">
+              <Link href="/admin/products">
+                <Button variant="outline" className="border-red-200 text-red-500 hover:bg-red-50">
+                  <ShoppingBag className="mr-2 h-4 w-4" />
+                  Gerenciar Cardápio
+                </Button>
+              </Link>
+              <Badge className="bg-red-500">
+                {orders.filter((order) => order.status === "pending").length} Pedidos Pendentes
+              </Badge>
+            </div>
           </div>
         </div>
       </header>

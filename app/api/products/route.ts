@@ -22,3 +22,44 @@ export async function GET() {
     return NextResponse.json({ success: false, message: "Erro ao buscar produtos" }, { status: 500 })
   }
 }
+
+export async function POST(request: Request) {
+  try {
+    const body = await request.json()
+
+    // Validar dados básicos
+    if (!body.name || !body.price || !body.category) {
+      return NextResponse.json(
+        { success: false, message: "Nome, preço e categoria são obrigatórios" },
+        { status: 400 }
+      )
+    }
+
+    const { data, error } = await supabase
+      .from("products")
+      .insert([{
+        name: body.name,
+        description: body.description || "",
+        price: parseFloat(body.price),
+        category: body.category,
+        subcategory: body.subcategory || null,
+        image_url: body.image_url || null,
+        popular: body.popular || false,
+        active: true
+      }])
+      .select()
+      .single()
+
+    if (error) {
+      throw error
+    }
+
+    return NextResponse.json({ success: true, product: data })
+  } catch (error) {
+    console.error("Erro ao criar produto:", error)
+    return NextResponse.json(
+      { success: false, message: "Erro ao criar produto" },
+      { status: 500 }
+    )
+  }
+}
