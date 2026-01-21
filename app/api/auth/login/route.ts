@@ -5,13 +5,13 @@ export async function POST(request: Request) {
         const { email, password } = await request.json()
 
         const correctEmail = "ofuedoceria@gmail.com"
-        const correctPassword = process.env.ADMIN_PASSWORD || "doceofue2025"
+        const correctPassword = process.env.ADMIN_PASSWORD
 
         // Verifica Email E Senha
         const cleanEmail = email?.trim().toLowerCase()
         const cleanPassword = password?.trim()
 
-        if (cleanEmail === correctEmail && cleanPassword === correctPassword) {
+        if (cleanEmail === correctEmail && cleanPassword && cleanPassword === correctPassword) {
             const response = NextResponse.json({ success: true })
 
             // Setar cookie HTTP-only
